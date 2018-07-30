@@ -1,0 +1,36 @@
+#if [[ -z $MYBASHRC_DONE ]]; then
+#export MYBASHRC_DONE=yes
+
+PROMPT_BACK_COLOR=104
+PROMPT_FORE_COLOR=94
+PROMPT_DIR_COLOR=93
+export PS1="\n\[\e[${PROMPT_BACK_COLOR}m\e[30m\] \D{%T} \h \l \[\e[${PROMPT_FORE_COLOR}m\e[49m\] \[\e[${PROMPT_DIR_COLOR}m\]\w\n\[\e[91m\]>\[\e[0m\] "
+# echo -e '\uE0B2 \uE0B0'  ->   
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# enclose all escape commands in \[ \]
+
+export LS_COLORS="di=1:fi=0:ln=4:do=7:pi=7:so=7:bd=7:cd=7:or=5:mi=5:su=4:sg=4:tw=4:ex=4:*.csv=94:*.tab=94:*.txt=36:*.pkl=32:*.npy=32:*.xls=94:*.xlsx=94:*.py=92:*.ipynb=92:*.R=95:*.RData=35:*.jar=91:*.pdf=31:*.ps=31:*.gz=33:*.bz=33:*.bz2=33:*.zip=33:*.tgz=33:*.png=93:*.jpg=93:*.bmp=93:*.jpeg=93:*.svg=93:*.html=96:*.htm=96:*.xml=96:*.yml=96:*~=37"
+
+alias ls="ls --color=auto"
+alias ll="exa --group-directories-first -l"
+alias grep="grep --color=auto"
+
+#export GOPATH=".."
+#export MYPYPATH="../bin/mypy"
+#export CLASSPATH=:$CLASSPATH
+#export PATH=:$PATH
+#export PYTHONPATH=:$PYTHONPATH
+#export CDPATH=
+
+
+#export EDITOR=geany
+
+#export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-mathjax'
+#export PYSPARK_PYTHON=/BIGDATA/opt/iaa/anaconda3/bin/python
+#export PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.4.0"
+#export SPARK_HOME=/usr/hdp/current/spark2-client
+#export SPARK_MAJOR_VERSION=2
+
+#export LD_PRELOAD=/BIGDATA/home/asuchane/keymod.so
+
+#fi
