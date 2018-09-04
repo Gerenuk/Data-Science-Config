@@ -1,5 +1,24 @@
 """
 Write doc of commands!
+
+### Terminal color:
+`termcol.coral("TEXT")`
+needs str() conversion though
+
+### Curried functions
+cfilter, cgroupby, cmap, caccumulate, cmax, cmin, czip
+
+### Countdown
+c = Countdown(10)
+for ...:
+    if c: break
+
+### Pipe
+P(f1, f2, ...)(data)
+
+### Other functions
+contains("val")          | Curried contains value test
+zipl                     | Shorter than zip_longest
 """
 
 
@@ -13,50 +32,26 @@ class catch_exc:
         return True
 
 
-from functools import reduce, partial
-from operator import *
-from pprint import pprint
-from copy import deepcopy
-
-from bisect import *
-from abc import *
-from math import *
-from itertools import *
-from collections import *
-
-from itertools import zip_longest
-
-import contextlib
-import csv
-import glob
-import logging
-import os
-import pickle
 import random
-import re
-import sys
-import time
-import sqlite3
-
-import datetime as dt
+from itertools import *
 
 random.seed(123)
 
-with catch_exc():
-    from pathlib import Path
-
 with catch_exc():  # due to Python 2
-    from reprlib import repr as arepr
+    pass
 
 with catch_exc():
-    import sklearn
+    pass
 
 with catch_exc():
-    from tqdm import tqdm_notebook as tqdm   # may break on console?
+    pass
 
 with catch_exc():
-    #from IPython.display import display   # already existing in new IPython
-    from IPython.display import HTML
+    pass
+
+with catch_exc():
+    # from IPython.display import display   # already existing in new IPython
+    pass
 
 with catch_exc():
     import numpy as np
@@ -64,24 +59,36 @@ with catch_exc():
     np.random.seed(123)
 
 with catch_exc():
-    import pandas as pd
+    pass
 
 with catch_exc():
-    import statsmodels.api as sm
+    pass
 
 with catch_exc():
-    import matplotlib as mpl
-    import matplotlib.pyplot as plt
+    pass
 
 with catch_exc():
-    import bokeh.plotting as bk
-    #from bokeh.charts import *          # deprecated
+    pass
 
 with catch_exc():
-    import seaborn as sns
+    pass
 
 with catch_exc():
-    from statistics import *
+    pass
+
+with catch_exc():
+    pass
+
+with catch_exc():
+    from sklearn.ensemble import *
+    from sklearn.metrics import *
+    from sklearn.model_selection import *
+    from sklearn.linear_model import *
+    from sklearn.preprocessing import *
+    from sklearn.feature_extraction import *
+    from sklearn.feature_selection import *
+    from sklearn.pipeline import *
+    from sklearn.svm import *
 
 with catch_exc():
     from cytoolz.curried import *
@@ -89,10 +96,7 @@ with catch_exc():
     del filter  # for performance reasons
     del map
     del sorted
-
-    from cytoolz.curried import filter as cfilter
-    from cytoolz.curried import groupby as cgroupby
-    from cytoolz.curried import accumulate as caccumulate
+    del groupby
 
     from cytoolz import curry
 
@@ -103,23 +107,20 @@ with catch_exc():
 
     listpluck = lambda *args: list(tz.pluck(*args))
 
+with catch_exc():
+    import colorful as termcol
+
+    termcol.use_true_colors()
+
 
 def contains(val):
     return lambda x: val in x
 
 
-from itertools import groupby
-
 with catch_exc():
-    import pyspark.sql.functions as F
     from pyspark.sql.types import *
-    from pyspark.sql.window import Window
 
-    print("Using Spark version {}".format(sc.version))   # sc obsolete?
-
-import itertools
-
-listslice = lambda x, n=5: list(itertools.islice(x, n))
+    print("Using Spark version {}".format(sc.version))  # sc obsolete?
 
 
 def P(*funcs):
