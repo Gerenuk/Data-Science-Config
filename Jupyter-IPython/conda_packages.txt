@@ -1,0 +1,10 @@
+cytoolz
+holoviews
+seaborn
+pandas
+numpy
+tqdm
+scikit-learn
+statsmodels
+matplotlib
+bokeh

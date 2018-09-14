@@ -1,0 +1,12 @@
+{
+    "snippets" : [
+        {
+            "name" : "holoviews",
+            "code" : [
+                "hv.notebook_extension('bokeh', 'matplotlib')",
+                "%output size=130",
+                "%opts Curve [tools=['hover', 'tap']]"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+Jetbrains
+=========
+Create ~/.PyCharm2016.1/config/colors (Jetbrains: ~/Library/Preferences/{NameOfIDE}/colors/Dracula.icls)
+Restart and select theme and Editor/Colors
+
