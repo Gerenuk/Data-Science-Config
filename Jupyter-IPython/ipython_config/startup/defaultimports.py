@@ -4,11 +4,14 @@ Write doc of commands!
 
 
 class catch_exc:
+    def __init__(self, print_error=True):
+        self.print_error = print_error
+
     def __enter__(self):
         pass
 
     def __exit__(self, exc_type, exc, exc_tb):
-        if exc is not None:
+        if self.print_error and exc is not None:
             print("Skipped some default imports due to : {} {}".format(exc_type.__name__, exc))
         return True
 
@@ -24,8 +27,6 @@ from math import *
 from itertools import *
 from collections import *
 
-from itertools import zip_longest
-
 import contextlib
 import csv
 import glob
@@ -37,7 +38,6 @@ import re
 import sys
 import time
 import sqlite3
-
 import datetime as dt
 
 random.seed(123)
@@ -74,14 +74,19 @@ with catch_exc():
     import matplotlib.pyplot as plt
 
 with catch_exc():
-    import bokeh.plotting as bk
-    #from bokeh.charts import *          # deprecated
+    import bokeh.plotting as bk  # ?
+
+with catch_exc():
+    import holoviews as hv
 
 with catch_exc():
     import seaborn as sns
 
 with catch_exc():
     from statistics import *
+
+with catch_exc():
+    import xarray as xr
 
 with catch_exc():
     from cytoolz.curried import *
@@ -107,10 +112,7 @@ with catch_exc():
 def contains(val):
     return lambda x: val in x
 
-
-from itertools import groupby
-
-with catch_exc():
+with catch_exc(print_error=False):
     import pyspark.sql.functions as F
     from pyspark.sql.types import *
     from pyspark.sql.window import Window

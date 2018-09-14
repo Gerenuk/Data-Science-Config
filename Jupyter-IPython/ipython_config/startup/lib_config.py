@@ -7,7 +7,7 @@ try:
     import matplotlib as mpl
     import matplotlib.pyplot as plt
 
-    plt.style.use("seaborn-whitegrid")      # works when no seaborn?
+    #plt.style.use("seaborn-whitegrid")      # works when no seaborn?
     mpl.rcParams["figure.figsize"] = (10, 5)
     mpl.rcParams["hist.bins"]="auto"
 except ImportError:
