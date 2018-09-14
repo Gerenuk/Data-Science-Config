@@ -9,12 +9,14 @@ TODO:
 * display None and mappingproxy currently not working
 """
 
-import string
 import datetime
+import html
+import string
 from collections import Counter, OrderedDict
 from functools import partial
 from itertools import islice
 from operator import itemgetter
+
 from IPython import get_ipython
 from IPython.display import display
 
@@ -28,6 +30,17 @@ ellipsis = "\u2026"
 max_sort_length = 10000
 max_seq_length = 20
 MAX_NUM_PD_COLNAMES = 30
+
+fore_col_grey = "\033[37m"
+back_col_black = "\033[40m"
+back_col_red = "\033[41m"
+back_col_green = "\033[42m"
+back_col_yellow = "\033[43m"
+back_col_blue = "\033[44m"
+back_col_pink = "\033[45m"
+back_col_teal = "\033[46m"
+back_col_grey = "\033[47m"
+col_reset = "\033[0m"
 
 
 def iprint(obj, max_seq_length=1000, **kwargs):
@@ -47,7 +60,7 @@ def iprint(obj, max_seq_length=1000, **kwargs):
 def _is_numpy_number(x):
     try:
         import numpy as np
-        return np.issubdtype(x, np.number)
+        return np.issubdtype(type(x), np.number)
     except (ImportError, TypeError):
         return False
 
@@ -59,6 +72,10 @@ def _has_short_repr(obj):  # these values can be printed on one line without bre
                 obj) == 0) or  # just checking __len__ is bad since scipy.sparse has len but fails
             _is_numpy_number(obj)
             )
+
+
+def format_len(obj):
+    return fore_col_grey + "{}\u2300".format(format_int(len(obj))) + col_reset
 
 
 def ipy_prettyprint_int(obj, printer, is_cycle):
@@ -74,7 +91,7 @@ def _quote_text(text):
     text_repr = repr(text)[1:-1]
 
     if ({text[0], text[-1]} & quoted_boundary_chars or
-                set(text) - unquoted_chars):
+            set(text) - unquoted_chars):
         if string_display_quote_char not in text:
             return string_display_quote_char + text_repr + string_display_quote_char
         elif string_display_quote_char2 not in text:
@@ -113,7 +130,7 @@ def ipy_prettyprint_iter(obj, printer, is_cycle,
             printer.pretty(subobj)
         printer.text(" " + closetext)
     else:
-        printer.begin_group(2, "{}{}\u2300".format(opentext, format_int(len(obj))))
+        printer.begin_group(2, "{}{}".format(opentext, format_len(obj)))
         printer.break_()
 
         if sort and len(obj) < max_sort_length:
@@ -174,7 +191,7 @@ def ipy_prettyprint_dict(obj, printer, is_cycle,
             printer.pretty(v)
         printer.text(" " + closetext)
     else:
-        printer.begin_group(2, "{} {}\u2300".format(opentext, format_int(len(obj))))
+        printer.begin_group(2, "{} {}".format(opentext, format_len(obj)))
         printer.break_()
 
         if sort and len(obj) <= max_sort_length:
@@ -218,11 +235,17 @@ def ipy_prettyprint_dict(obj, printer, is_cycle,
 
 
 def ipy_prettyprint_tuple(obj, printer, is_cycle):
+    # TODO: may catch popular subtypes of tuple and display insuffcient information
     if hasattr(obj, "_fields"):  # namedtuple
-        ipy_prettyprint_dict(obj._asdict(), printer, is_cycle, opentext="(", closetext=")", sort=False)
+        ipy_prettyprint_dict(obj._asdict(), printer, is_cycle, opentext=back_col_green + "(" + col_reset,
+                             closetext=back_col_green + ")" + col_reset, sort=False)
         return
 
-    ipy_prettyprint_iter(obj, printer, is_cycle, opentext="(", closetext=")")
+    #if type(obj)==tuple:   # Only do that for real tuples
+    ipy_prettyprint_iter(obj, printer, is_cycle, opentext=back_col_grey + "(" + col_reset,
+                         closetext=back_col_grey + ")" + col_reset)
+    #else:
+    #    display_pretty(obj)
 
 
 def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
@@ -231,7 +254,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
     else:
         total = sum(obj.values())
         cumsum = 0
-        with printer.group(2, "Cntr {}\u2300".format(format_int(len(obj))), ""):
+        with printer.group(2, "Cntr {}".format(format_len(obj)), ""):
             printer.break_()
             item_cnt_list = obj.most_common()
             for rank, (val, cnt) in enumerate(item_cnt_list[:printer.max_seq_length], 1):
@@ -239,8 +262,9 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                 if rank > 1:
                     printer.break_()
                 printer.text(
+                    fore_col_grey+
                     "{:2} {})  {}\u00d7 ".format(rank, "{:3.0%}".format(cumsum / total) if total > 0 else "N.A",
-                                                 format_int(cnt)))
+                                                 format_int(cnt))+col_reset)
                 with printer.group(2):
                     printer.pretty(val)
             if len(item_cnt_list) > printer.max_seq_length:
@@ -252,7 +276,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                         for rank, (val, cnt) in enumerate(item_cnt_list[printer.max_seq_length:],
                                                           printer.max_seq_length + 1):
                             printer.break_()
-                            printer.text("{:2})      {}\u00d7 ".format(rank, format_int(cnt)))
+                            printer.text(fore_col_grey+"{:2})      {}\u00d7 ".format(rank, format_int(cnt))+col_reset)
                             with printer.group(2):
                                 printer.pretty(val)
                     else:
@@ -261,7 +285,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                         for rank, (val, cnt) in enumerate(item_cnt_list[-max_tail_length:],
                                                           len(item_cnt_list) - max_tail_length + 1):
                             printer.break_()
-                            printer.text("{:2})      {}\u00d7 ".format(rank, format_int(cnt)))
+                            printer.text(fore_col_grey+"{:2})      {}\u00d7 ".format(rank, format_int(cnt))+col_reset)
                             with printer.group(2):
                                 printer.pretty(val)
 
@@ -325,17 +349,24 @@ except Exception as e:
 
 try:  # Section for Text Printer
     text_printer = get_ipython().display_formatter.formatters["text/plain"]
-    text_printer.for_type(list, partial(ipy_prettyprint_iter, opentext="[", closetext="]"))
+
+    text_printer.for_type(list, partial(ipy_prettyprint_iter, opentext=back_col_blue + "[" + col_reset,
+                                        closetext=back_col_blue + "]" + col_reset))
     text_printer.for_type(tuple, ipy_prettyprint_tuple)
-    text_printer.for_type(set, partial(ipy_prettyprint_iter, opentext="{", closetext="}", empty_iter="s{}", sort=True))
-    text_printer.for_type(frozenset, partial(ipy_prettyprint_iter, opentext="f{", closetext="}", sort=True))
-    text_printer.for_type(dict, ipy_prettyprint_dict)
+    text_printer.for_type(set, partial(ipy_prettyprint_iter, opentext=back_col_teal + "{" + col_reset,
+                                       closetext=back_col_teal + "}" + col_reset, empty_iter="s{}", sort=True))
+    text_printer.for_type(frozenset, partial(ipy_prettyprint_iter, opentext=back_col_teal + "f{" + col_reset,
+                                             closetext=back_col_teal + "}" + col_reset, sort=True))
+    text_printer.for_type(dict, partial(ipy_prettyprint_dict, opentext=back_col_yellow + "{" + col_reset,
+                                        closetext=back_col_yellow + "}" + col_reset))
     text_printer.for_type(str, ipy_prettyprint_str)
     text_printer.for_type(Counter, ipy_prettyprint_Counter)
     text_printer.for_type(int, ipy_prettyprint_int)
     text_printer.for_type(OrderedDict,
-                          lambda obj, printer, is_cycle: ipy_prettyprint_dict(obj, printer, is_cycle, opentext="O{",
-                                                                              closetext="}", sort=False))
+                          lambda obj, printer, is_cycle: ipy_prettyprint_dict(obj, printer, is_cycle,
+                                                                              opentext=back_col_yellow + "f{" + col_reset,
+                                                                              closetext=back_col_yellow + "}" + col_reset,
+                                                                              sort=False))
     text_printer.for_type(datetime.date, ipy_prettyprint_date)
     text_printer.for_type(datetime.datetime, partial(ipy_prettyprint_datetime, prefix="dt"))
     # text_printer.for_type("builtins.mappingproxy",   # doesnt work

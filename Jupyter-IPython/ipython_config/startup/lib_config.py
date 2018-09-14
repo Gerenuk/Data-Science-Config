@@ -37,6 +37,8 @@ try:
     pd.set_option("display.max_info_columns", 1000)
     pd.set_option("display.max_colwidth", 40)
     pd.set_option("display.date_dayfirst", True)
+    pd.set_option("display.max_seq_items", 10)
+    #pd.set_option("display.precision", 4)
 
     pd.set_option('float_format', '{:,.5g}'.format)
 

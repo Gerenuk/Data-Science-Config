@@ -12,7 +12,11 @@ class catch_exc:
 
     def __exit__(self, exc_type, exc, exc_tb):
         if self.print_error and exc is not None:
-            print("Skipped some default imports due to : {} {}".format(exc_type.__name__, exc))
+            print(
+                "Skipped some default imports due to : {} {}".format(
+                    exc_type.__name__, exc
+                )
+            )
         return True
 
 
@@ -52,19 +56,12 @@ with catch_exc():
     import sklearn
 
 with catch_exc():
-    from tqdm import tqdm_notebook as tqdm   # may break on console?
+    from tqdm import tqdm_notebook as tqdm  # may break on console?
 
 with catch_exc():
-    #from IPython.display import display   # already existing in new IPython
+    # from IPython.display import display   # already existing in new IPython
     from IPython.display import HTML
 
-with catch_exc():
-    import numpy as np
-
-    np.random.seed(123)
-
-with catch_exc():
-    import pandas as pd
 
 with catch_exc():
     import statsmodels.api as sm
@@ -112,57 +109,8 @@ with catch_exc():
 def contains(val):
     return lambda x: val in x
 
+
 with catch_exc(print_error=False):
     import pyspark.sql.functions as F
     from pyspark.sql.types import *
     from pyspark.sql.window import Window
-
-    print("Using Spark version {}".format(sc.version))   # sc obsolete?
-
-import itertools
-
-listslice = lambda x, n=5: list(itertools.islice(x, n))
-
-
-def P(*funcs):
-    def wrapped_pipe(data):
-        for func in funcs:
-            data = func(data)
-        return data
-
-    if callable(funcs[0]):
-        return wrapped_pipe
-
-    data = funcs[0]
-    for func in funcs[1:]:
-        data = func(data)
-    return data
-
-
-def countdowns(*counts):
-    return chain(*[repeat(i, c) for i, c in enumerate(counts)] +
-                  [repeat(None)])
-
-
-class Countdown:
-    """
-    Usage:
-    >>> c = Countdown(10)
-    >>> for ...:
-    >>>     if c: break
-    """
-    def __init__(self, num):
-        self.num = num
-
-    def __bool__(self):
-        self.num -= 1
-        return bool(self.num < 0)
-
-
-# def clipboard(text=None):
-#    from subprocess import Popen, PIPE
-
-#    if text is None:
-#        text=_
-
-#    Popen(("xsel", "-i"), stdin=PIPE).communicate(text)
