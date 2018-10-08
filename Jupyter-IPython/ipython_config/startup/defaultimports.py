@@ -64,6 +64,14 @@ with catch_exc():
 
 
 with catch_exc():
+    import numpy as np
+
+
+with catch_exc():
+    import pandas as pd
+
+
+with catch_exc():
     import statsmodels.api as sm
 
 with catch_exc():
@@ -92,18 +100,18 @@ with catch_exc():
     del map
     del sorted
 
-    from cytoolz.curried import filter as cfilter
-    from cytoolz.curried import groupby as cgroupby
-    from cytoolz.curried import accumulate as caccumulate
+    from cytoolz.curried import filter as zfilter
+    from cytoolz.curried import map as zmap
+    from cytoolz.curried import sorted as zsorted
+    from cytoolz.curried import groupby as zgroupby
+    from cytoolz.curried import accumulate as zaccumulate
 
     from cytoolz import curry
 
-    cmax = curry(max)
-    cmin = curry(min)
+    zmax = curry(max)
+    zmin = curry(min)
 
-    czip = lambda xs: zip(*xs)
-
-    listpluck = lambda *args: list(tz.pluck(*args))
+    zzip = lambda xs: zip(*xs)
 
 
 def contains(val):

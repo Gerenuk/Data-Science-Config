@@ -3,6 +3,9 @@ TODO:
 * Bokeh settings
 """
 
+import warnings
+warnings.simplefilter("once")
+
 try:
     import matplotlib as mpl
     import matplotlib.pyplot as plt
