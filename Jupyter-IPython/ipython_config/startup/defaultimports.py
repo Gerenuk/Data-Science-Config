@@ -100,18 +100,19 @@ with catch_exc():
     del map
     del sorted
 
-    from cytoolz.curried import filter as zfilter
-    from cytoolz.curried import map as zmap
-    from cytoolz.curried import sorted as zsorted
-    from cytoolz.curried import groupby as zgroupby
-    from cytoolz.curried import accumulate as zaccumulate
+    # curried versions
+    from cytoolz.curried import filter as cfilter
+    from cytoolz.curried import map as cmap
+    from cytoolz.curried import sorted as csorted
+    from cytoolz.curried import groupby as cgroupby
+    from cytoolz.curried import accumulate as caccumulate
 
     from cytoolz import curry
 
-    zmax = curry(max)
-    zmin = curry(min)
+    cmax = curry(max)
+    cmin = curry(min)
 
-    zzip = lambda xs: zip(*xs)
+    czip = lambda xs: zip(*xs)
 
 
 def contains(val):
