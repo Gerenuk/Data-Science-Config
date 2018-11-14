@@ -158,7 +158,9 @@ def ipy_prettyprint_iter(obj, printer, is_cycle,
                     printer.break_()
                     printer.pretty(item)
 
-        printer.end_group(2, " " + closetext)
+        printer.end_group(2)
+        printer.break_()
+        printer.text(closetext)
 
 
 def ipy_prettyprint_dict(obj, printer, is_cycle,
@@ -231,7 +233,9 @@ def ipy_prettyprint_dict(obj, printer, is_cycle,
                     with printer.group(4):
                         printer.pretty(val)
 
-        printer.end_group(2, " " + closetext)
+        printer.end_group(2)
+        printer.break_()
+        printer.text(closetext)
 
 
 def ipy_prettyprint_tuple(obj, printer, is_cycle):
