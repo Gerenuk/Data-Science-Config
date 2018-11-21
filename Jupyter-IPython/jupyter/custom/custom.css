@@ -9,6 +9,7 @@ div.cell.selected { border-left-width: 1px !important; }
  font-style: normal;
  src: local('"Input Mono"'), url('fonts/Input-Italic_(InputMonoNarrow-LightItalic).ttf') format('truetype');
 }
+
 @font-face {
  font-family: "Input Mono";
  font-weight: normal;
@@ -16,8 +17,19 @@ div.cell.selected { border-left-width: 1px !important; }
  src: local('"Input Mono"'), url('fonts/Input-Regular_(InputMonoNarrow-Light).ttf') format('truetype');
 }
 
+@font-face {
+ font-family: "Work Sans";
+ font-weight: normal;
+ font-style: normal;
+ src: local('"Work Sans"'), url('fonts/WorkSans-Regular.otf') format('opentype');
+}
+
 .CodeMirror {
-  font-family: 'Input Mono';
+  font-family: 'Input Mono'; 
+}
+
+.text_cell_render {
+  font-family: 'Work Sans';
 }
 
 /* Colorful dataframe */
