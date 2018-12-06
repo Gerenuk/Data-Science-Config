@@ -540,13 +540,22 @@ try:  # Section for HTML printer
         import pandas as pd
 
         def ipy_html_pandasdataframe(df):
+            def type_icon(dtype):
+                if np.issubdtype(dtype, np.number):
+                    return " &#x3253;"
+                    
+                if np.issubdtype(dtype, np.datetime64):
+                    return " &#128337;"
+                    
+                return ""
+        
             num_rows, num_cols = df.shape
             colnames = [
                 (
                     html.escape(str(colname), quote=False)
-                    + (" \u246b" if _is_numpy_number(coltype) else "")
+                    + type_icon(coltype)
                 )
-                for colname, coltype in zip(df.columns, df.dtypes)
+                for colname, coltype in df.dtypes.iteritems()
             ]
 
             if len(colnames) >= MAX_NUM_PD_COLNAMES:
