@@ -31,6 +31,7 @@ quoted_boundary_chars = set(" ")
 
 thousands_separator = "\u066c"  # Use "_" to make it work with Python?
 ellipsis = "\u2026"
+times_char = "\u00d7"
 max_sort_length = 10000
 max_seq_length = 20
 MAX_NUM_PD_COLNAMES = 30
@@ -309,7 +310,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                     printer.break_()
                 printer.text(
                     fore_col_grey
-                    + "{:2} {})  {}\u00d7 ".format(
+                    + "{:2} {})  {}{times_char} ".format(
                         rank,
                         "{:3.0%}".format(cumsum / total) if total > 0 else "N.A",
                         format_int(cnt),
@@ -334,7 +335,9 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                             printer.break_()
                             printer.text(
                                 fore_col_grey
-                                + "{:2})      {}\u00d7 ".format(rank, format_int(cnt))
+                                + "{:2})      {}{times_char} ".format(
+                                    rank, format_int(cnt)
+                                )
                                 + col_reset
                             )
                             with printer.group(2):
@@ -349,7 +352,9 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                             printer.break_()
                             printer.text(
                                 fore_col_grey
-                                + "{:2})      {}\u00d7 ".format(rank, format_int(cnt))
+                                + "{:2})      {}{times_char} ".format(
+                                    rank, format_int(cnt)
+                                )
                                 + col_reset
                             )
                             with printer.group(2):
@@ -543,18 +548,15 @@ try:  # Section for HTML printer
             def type_icon(dtype):
                 if np.issubdtype(dtype, np.number):
                     return " &#x3253;"
-                    
+
                 if np.issubdtype(dtype, np.datetime64):
                     return " &#128337;"
-                    
+
                 return ""
-        
+
             num_rows, num_cols = df.shape
             colnames = [
-                (
-                    html.escape(str(colname), quote=False)
-                    + type_icon(coltype)
-                )
+                (html.escape(str(colname), quote=False) + type_icon(coltype))
                 for colname, coltype in df.dtypes.iteritems()
             ]
 
@@ -565,13 +567,23 @@ try:  # Section for HTML printer
                     + colnames[-MAX_NUM_PD_COLNAMES // 2 :]
                 )
 
-            return "<br>".join(
-                [
-                    f"{html_grey}{format_int(num_rows)} rows",
-                    f"{num_cols} cols: {', '.join(colnames)}",
-                    f"{df.index.dtype.name} index{html_close_color}",
-                    df._repr_html_(),
-                ]
+            col_type_counts = df.dtypes.value_counts()
+
+            return (
+                html_grey
+                + "<br>".join(
+                    [
+                        f"{format_int(num_rows)} rows; index: {df.index.dtype.name}",
+                        f"{num_cols} cols: {', '.join(colnames)}",
+                        "types: "
+                        + ", ".join(
+                            f"{count}{times_char} {dtype.name}"
+                            for dtype, count in col_type_counts.items()
+                        ),
+                        df._repr_html_(),
+                    ]
+                )
+                + html_close_color
             )
 
         html_printer.for_type(pd.DataFrame, ipy_html_pandasdataframe)
