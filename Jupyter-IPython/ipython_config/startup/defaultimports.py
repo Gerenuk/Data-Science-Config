@@ -99,6 +99,7 @@ with catch_exc():
     del filter  # for performance reasons
     del map
     del sorted
+    from itertools import groupby, accumulate
 
     # curried versions
     from cytoolz.curried import filter as cfilter
