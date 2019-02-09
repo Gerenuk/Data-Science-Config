@@ -1,1 +1,0 @@
-* Add `a:visited { color: #ff00ff !important; }` to `<profile>/chrome/userContent.css`
