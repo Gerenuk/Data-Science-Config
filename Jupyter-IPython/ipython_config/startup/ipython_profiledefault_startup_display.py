@@ -88,7 +88,7 @@ def _has_short_repr(
 
 
 def format_len(obj):
-    return fore_col_grey + "{}\u2300".format(format_int(len(obj))) + col_reset
+    return fore_col_grey + f"{format_int(len(obj))}\u2300" + col_reset
 
 
 def ipy_prettyprint_int(obj, printer, is_cycle):
@@ -96,7 +96,7 @@ def ipy_prettyprint_int(obj, printer, is_cycle):
 
 
 def format_int(obj):
-    return "{:,}".format(obj).replace(",", thousands_separator)
+    return f"{obj:,}".replace(",", thousands_separator)
 
 
 def _quote_text(text):
@@ -132,7 +132,7 @@ def ipy_prettyprint_iter(
     sort=False,
 ):
     if is_cycle:
-        printer.text("{}\u2941{}".format(opentext, closetext))
+        printer.text(f"{opentext}\u2941{closetext}")
     elif len(obj) == 0:
         printer.text(opentext + closetext if empty_iter is None else empty_iter)
     elif (len(obj) <= maxunnested and all(_has_short_repr(o) for o in obj)) or len(
@@ -153,7 +153,7 @@ def ipy_prettyprint_iter(
             printer.pretty(subobj)
         printer.text(" " + closetext)
     else:
-        printer.begin_group(2, "{}{}".format(opentext, format_len(obj)))
+        printer.begin_group(2, f"{opentext}{format_len(obj)}")
         printer.break_()
 
         if sort and len(obj) < max_sort_length:
@@ -197,7 +197,7 @@ def ipy_prettyprint_dict(
     sort=True,
 ):
     if is_cycle:
-        printer.text("{}\u2941{}".format(opentext, closetext))
+        printer.text(f"{opentext}\u2941{closetext}")
     elif len(obj) == 0:
         printer.text(opentext + closetext)
     elif (
@@ -223,7 +223,7 @@ def ipy_prettyprint_dict(
             printer.pretty(v)
         printer.text(" " + closetext)
     else:
-        printer.begin_group(2, "{} {}".format(opentext, format_len(obj)))
+        printer.begin_group(2, f"{opentext} {format_len(obj)}")
         printer.break_()
 
         if sort and len(obj) <= max_sort_length:
@@ -299,7 +299,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
     else:
         total = sum(obj.values())
         cumsum = 0
-        with printer.group(2, "Cntr {}".format(format_len(obj)), ""):
+        with printer.group(2, f"Cntr {format_len(obj)}", ""):
             printer.break_()
             item_cnt_list = obj.most_common()
             for rank, (val, cnt) in enumerate(
@@ -310,11 +310,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                     printer.break_()
                 printer.text(
                     fore_col_grey
-                    + "{:2} {})  {}{times_char} ".format(
-                        rank,
-                        "{:3.0%}".format(cumsum / total) if total > 0 else "N.A",
-                        format_int(cnt),
-                    )
+                    + f"{rank:2} {f'{cumsum / total:3.0%}' if total > 0 else 'N.A'})  {format_int(cnt)}{times_char} "
                     + col_reset
                 )
                 with printer.group(2):
@@ -335,9 +331,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                             printer.break_()
                             printer.text(
                                 fore_col_grey
-                                + "{:2})      {}{times_char} ".format(
-                                    rank, format_int(cnt)
-                                )
+                                + f"{rank:2})      {format_int(cnt)}{times_char} "
                                 + col_reset
                             )
                             with printer.group(2):
@@ -352,9 +346,7 @@ def ipy_prettyprint_Counter(obj, printer, is_cycle, max_tail_length=3):
                             printer.break_()
                             printer.text(
                                 fore_col_grey
-                                + "{:2})      {}{times_char} ".format(
-                                    rank, format_int(cnt)
-                                )
+                                + f"{rank:2})      {format_int(cnt)}{times_char} "
                                 + col_reset
                             )
                             with printer.group(2):
@@ -383,15 +375,15 @@ def ipy_prettyprint_str(obj, printer, is_cycle, maxstrlen=200):
 
 def ipy_prettyprint_datetime(obj, printer, is_cycle, prefix):
     if obj.hour == 0 and obj.minute == 0 and obj.second == 0:
-        printer.text("{}.{:%Y-%m-%d}".format(prefix, obj))
+        printer.text(f"{prefix}.{obj:%Y-%m-%d}")
     elif obj.second == 0:
-        printer.text("{}.{:%Y-%m-%d-%H:%M}".format(prefix, obj))
+        printer.text(f"{prefix}.{obj:%Y-%m-%d-%H:%M}")
     else:
-        printer.text("{}.{:%Y-%m-%d-%H:%M:%S}".format(prefix, obj))
+        printer.text(f"{prefix}.{obj:%Y-%m-%d-%H:%M:%S}")
 
 
 def ipy_prettyprint_date(obj, printer, is_cycle):
-    printer.text("d.{:%Y-%m-%d}".format(obj))
+    printer.text(f"d.{obj:%Y-%m-%d}")
 
 
 def ipy_prettyprint_numpy_array(obj, printer, is_cycle):
@@ -441,7 +433,7 @@ try:  # Pandas DataFrame Integer Formatter section
 except ImportError:
     pass
 except Exception as e:
-    print("Failed setting Pandas settings ({})".format(e))
+    print(f"Failed setting Pandas settings ({e})")
 
 try:  # Section for Text Printer
     text_printer = get_ipython().display_formatter.formatters["text/plain"]
@@ -523,7 +515,7 @@ try:  # Section for Text Printer
         pass
 
 except Exception as e:
-    print("Failed to set text/plain pretty printers ({})".format(e))
+    print(f"Failed to set text/plain pretty printers ({e})")
 
 try:  # Section for HTML printer
     html_printer = get_ipython().display_formatter.formatters["text/html"]
@@ -539,7 +531,7 @@ try:  # Section for HTML printer
     except ImportError as e:
         pass
     except Exception as e:
-        print("Failed to set text/html Spark DataFrame pretty display ({})".format(e))
+        print(f"Failed to set text/html Spark DataFrame pretty display ({e})")
 
     try:
         import pandas as pd
@@ -602,7 +594,7 @@ try:  # Section for HTML printer
     except ImportError as e:
         pass
     except Exception as e:
-        print("Failed to set text/html Pandas DataFrame pretty display ({})".format(e))
+        print(f"Failed to set text/html Pandas DataFrame pretty display ({e})")
 
 except Exception as e:
-    print("Failed setting IPython HTML settings ({})".format(e))
+    print(f"Failed setting IPython HTML settings ({e})")
