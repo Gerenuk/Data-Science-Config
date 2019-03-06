@@ -1,14 +1,14 @@
+#!/bin/bash
 USERNAME=
 HOST=
 JUPYTER_PORT=12345
-CONDA_ENV_NAME=py
-SSH_KEY_PATH=c/.../.ssh/...
+SSH_KEY_PATH=              # for Mobaxterm: /drives/c/...
+INIT_COMMANDS="source activate ...; cd ..."
 
-# Your remote ~/.bashrc needs to include the directory of `activate` (from anaconda) unless you specify the full path below
-# e.g. export PATH=$PATH:..../Anaconda/bin
-# Note that standard .bashrc may exit/return at the top for non-interactive logins -> put your export before that
+ssh $USERNAME@$HOST -tx -L $JUPYTER_PORT:127.0.0.1:$JUPYTER_PORT -i $SSH_KEY_PATH screen -R -S jupyter "bash -c '$INIT_COMMANDS; jupyter notebook --port $JUPYTER_PORT --no-browser'"
 
-ssh $USERNAME@$HOST -tt -L $JUPYTER_PORT:127.0.0.1:$JUPYTER_PORT -i /drives/$SSH_KEY_PATH "source activate $CONDA_ENV_NAME; jupyter notebook --port $JUPYTER_PORT --no-browser"
-
-# /drives is where MobaXTerm mounts the Windows drives
-# without -tt it will not kill jupyter on disconnect
+# -t: terminal; -x: disable X11
+# -R will attach to a unique (detached) screen session -  or use the other arguments to create a new one
+# -S named screen session
+# check screen sessions with "screen -list"
+# you can only attach to detached screen sessions
