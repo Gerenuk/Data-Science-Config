@@ -13,10 +13,11 @@ try:
 
     #plt.style.use("seaborn-whitegrid")      # works when no seaborn?
     mpl.rcParams["figure.figsize"] = (15, 15)  # doesnt work?
-    mpl.rcParams["hist.bins"]="auto"
 
     # 'axes.titlesize', 'legend.fontsize', 'axes.labelsize', 'axes.titlesize'
     # 'xtick.labelsize', 'ytick.labelsize' 'figure.titlesize'
+
+    mpl.rcParams["hist.bins"]="auto"        # "auto" failed for some data; would like "doane"; alternative "rice" but only takes data size and not variability; "stone" was not found
 except ImportError:
     pass
 except Exception as e:
