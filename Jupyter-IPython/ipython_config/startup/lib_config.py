@@ -12,7 +12,7 @@ try:
 
     #plt.style.use("seaborn-whitegrid")      # works when no seaborn?
     mpl.rcParams["figure.figsize"] = (10, 5)
-    mpl.rcParams["hist.bins"]="doane"        # "auto" failed for some data; alternative "rice" but only takes data size and not variability; "stone" was not found
+    mpl.rcParams["hist.bins"]="auto"        # "auto" failed for some data; alternative "rice" but only takes data size and not variability; "stone" was not found
 except ImportError:
     pass
 except Exception as e:

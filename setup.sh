@@ -2,7 +2,7 @@
 
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
-CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh cytoolz xlrd tqdm statsmodels numpy matplotlib"
+CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh numexpr bottleneck cytoolz xlrd tqdm statsmodels numpy matplotlib"
 PIP_PACKAGES="colorful blackcellmagic"  # colorlog?
 
 HOSTNAME=`hostname`
