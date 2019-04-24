@@ -3,6 +3,7 @@
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
 CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh cytoolz xlrd tqdm statsmodels numpy matplotlib"
+JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz"   #pyviz for holoviews
 PIP_PACKAGES="colorful blackcellmagic"  # colorlog?
 
 HOSTNAME=`hostname`
@@ -39,10 +40,14 @@ cp inputrc ~/.inputrc
 # Conda env
 conda create -n py -y python=3 $CONDA_PACKAGES
 
-source activate py
+# conda install -c pytorch pytorch
+
+conda activate py
 python -m ipykernel install --user --name py --display-name="Py"
 
 pip install $PIP_PACKAGES
+
+jupyter labextension install "JUPYTERLAB_EXTENSIONS"   # does this work?
 
 # still need nbextensions
 
@@ -53,6 +58,8 @@ jupyter contrib nbextension install --user
 
 # IPython
 ln -s -t ~/.ipython/profile_default ~/config/IPython/startup
+
+#TODO: link snippets.json, but for JupyterLab
 
 # https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
 # ...

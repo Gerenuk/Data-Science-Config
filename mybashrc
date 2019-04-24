@@ -32,5 +32,6 @@ alias grep="grep -rnIi --color=auto"           # recursive, line numbes, no bina
 #export SPARK_MAJOR_VERSION=2
 
 #export LD_PRELOAD=/BIGDATA/home/asuchane/keymod.so
+#export LD_LIBRARY_PATH=/opt/cuda/extras/CUPTI/lib64/:$LD_LIBRARY_PATH
 
 #fi

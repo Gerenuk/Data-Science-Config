@@ -4,15 +4,19 @@ TODO:
 """
 
 import warnings
-warnings.simplefilter("once")
+#warnings.simplefilter("once")
+warnings.filterwarnings(action='once')
 
 try:
     import matplotlib as mpl
     import matplotlib.pyplot as plt
 
     #plt.style.use("seaborn-whitegrid")      # works when no seaborn?
-    mpl.rcParams["figure.figsize"] = (10, 5)
+    mpl.rcParams["figure.figsize"] = (15, 15)  # doesnt work?
     mpl.rcParams["hist.bins"]="auto"
+
+    # 'axes.titlesize', 'legend.fontsize', 'axes.labelsize', 'axes.titlesize'
+    # 'xtick.labelsize', 'ytick.labelsize' 'figure.titlesize'
 except ImportError:
     pass
 except Exception as e:
