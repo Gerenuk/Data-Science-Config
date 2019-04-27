@@ -99,7 +99,7 @@ with catch_exc():
         return plt.hist(*args, **kwargs)
 
     def figsize(size_x, size_y):
-        mpl.rcParams["figure.figsize"]=(size_x, size_y)
+        mpl.rcParams["figure.figsize"] = (size_x, size_y)
 
 
 with catch_exc():

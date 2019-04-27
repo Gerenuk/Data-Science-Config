@@ -59,7 +59,8 @@ except Exception as e:
 try:
     import numpy as np
 
-    np.set_printoptions(precision=4, edgeitems=4)
+    # https://docs.scipy.org/doc/numpy/reference/generated/numpy.set_printoptions.html
+    np.set_printoptions(precision=4, edgeitems=4, threshold=100, floatmode="maxprec")
 
 except Exception as e:
     logging.warning("Failed setting Numpy settings ({})".format(e))

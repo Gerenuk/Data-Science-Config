@@ -2,7 +2,10 @@
 
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
-JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager"
+
+JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager @quentinandre/jupyterlab_snippets"
+# validate all
+
 CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh numexpr bottleneck cytoolz xlrd tqdm statsmodels numpy matplotlib"
 PIP_PACKAGES="colorful blackcellmagic"  # colorlog?
 
