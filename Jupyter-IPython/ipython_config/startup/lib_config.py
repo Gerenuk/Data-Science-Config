@@ -77,7 +77,7 @@ try:
     pd.set_option("display.max_seq_items", 10)
     # pd.set_option("display.precision", 4)
 
-    pd.set_option("float_format", "{:,.5g}".format)
+    #pd.set_option("float_format", "{:,.5g}".format)  # too dangerous for not seeing decimal places
 
     # pd.set_option('precision',2)  # decimal determined by number precision in digits
 except ImportError:
