@@ -1,11 +1,18 @@
 {
     "snippets" : [
         {
-            "name" : "holoviews",
+            "name" : "Plotting",
             "code" : [
+                "bk.output_notebook()",
                 "hv.notebook_extension('bokeh', 'matplotlib')",
                 "%output size=130",
                 "%opts Curve [tools=['hover', 'tap']]"
+            ]
+        },
+        {
+            "name" : "Startup",
+            "code" : [
+                "logger = logging.getLogger('nb')   # out.log"
             ]
         }
     ]

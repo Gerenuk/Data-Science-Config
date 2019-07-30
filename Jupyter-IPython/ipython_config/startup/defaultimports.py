@@ -49,26 +49,35 @@ random.seed(123)
 with catch_exc():
     from pathlib import Path
 
-with catch_exc():  # due to Python 2
-    from reprlib import repr as arepr
 
 with catch_exc():
     import sklearn
 
-with catch_exc():
-    from tqdm import tqdm_notebook as tqdm  # may break on console?
+    from sklearn.cluster import *
+    from sklearn.decomposition import *
+    from sklearn.discriminant_analysis import *
+    from sklearn.ensemble import *
+    from sklearn.linear_model import *
+    from sklearn.metrics import *
+    from sklearn.model_selection import *
+    from sklearn.pipeline import *
+    from sklearn.preprocessing import *
 
 with catch_exc():
-    # from IPython.display import display   # already existing in new IPython
-    from IPython.display import HTML
+    from tqdm import tqdm
 
 
 with catch_exc():
     import numpy as np
 
+    np.random.seed(123)
+
 
 with catch_exc():
     import pandas as pd
+
+    from pandas import DataFrame
+    from pandas import Series
 
 
 with catch_exc():
@@ -78,8 +87,23 @@ with catch_exc():
     import matplotlib as mpl
     import matplotlib.pyplot as plt
 
+    def hist(*args, **kwargs):
+        for param, val in [
+            ("bins", "doane"),
+            ("density", True),
+            ("histtype", "stepfilled"),
+        ]:
+            if param not in kwargs:
+                kwargs[param] = val
+
+        return plt.hist(*args, **kwargs)
+
+    def figsize(size_x, size_y):
+        mpl.rcParams["figure.figsize"] = (size_x, size_y)
+
+
 with catch_exc():
-    import bokeh.plotting as bk  # ?
+    import bokeh.plotting as bk
 
 with catch_exc():
     import holoviews as hv
@@ -89,9 +113,6 @@ with catch_exc():
 
 with catch_exc():
     from statistics import *
-
-with catch_exc():
-    import xarray as xr
 
 with catch_exc():
     from cytoolz.curried import *
@@ -116,8 +137,8 @@ with catch_exc():
     czip = lambda xs: zip(*xs)
 
 
-def contains(val):
-    return lambda x: val in x
+# def contains(val):
+#    return lambda x: val in x
 
 
 with catch_exc(print_error=False):

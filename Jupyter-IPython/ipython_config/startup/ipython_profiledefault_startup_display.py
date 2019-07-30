@@ -6,7 +6,8 @@
 
 TODO:
 * HTML cannot react to changes of max_seq_length?
-* display None and mappingproxy currently not working
+* display mappingproxy currently not working
+* global variables leak into IPython scope?
 """
 
 import datetime

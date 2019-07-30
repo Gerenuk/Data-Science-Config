@@ -9,7 +9,7 @@
 #------------------------------------------------------------------------------
 
 # A parent class for Configurables that log.
-# 
+#
 # Subclasses have a log trait, and the default behavior is to get the logger
 # from the currently running Application.
 
@@ -20,7 +20,7 @@
 # Mixin for configurable classes that work with connection files
 
 # JSON file in which to store connection info [default: kernel-<pid>.json]
-# 
+#
 # This file will contain the IP, ports, and authentication key needed to connect
 # clients to this kernel. By default, this file will be created in the security
 # dir of the current profile, but can be specified by absolute path.
@@ -46,7 +46,7 @@
 # set the stdin (ROUTER) port [default: random]
 # c.ConnectionFileMixin.stdin_port = 0
 
-# 
+#
 # c.ConnectionFileMixin.transport = 'tcp'
 
 #------------------------------------------------------------------------------
@@ -54,13 +54,13 @@
 #------------------------------------------------------------------------------
 
 # A Mixin for applications that start InteractiveShell instances.
-# 
+#
 # Provides configurables for loading extensions and executing files as part of
 # configuring a Shell environment.
-# 
+#
 # The following methods should be called by the :meth:`initialize` method of the
 # subclass:
-# 
+#
 #   - :meth:`init_path`
 #   - :meth:`init_shell` (to be implemented by the subclass)
 #   - :meth:`init_gui_pylab`
@@ -78,7 +78,7 @@
 # c.InteractiveShellApp.exec_files = []
 
 # lines of code to run at IPython startup.
-# c.InteractiveShellApp.exec_lines = []
+#c.InteractiveShellApp.exec_lines = ["pd.set_option('display.max_rows', 101)"]
 
 # A list of dotted module names of IPython extensions to load.
 # c.InteractiveShellApp.extensions = []
@@ -109,7 +109,7 @@
 
 # If true, IPython will populate the user namespace with numpy, pylab, etc. and
 # an ``import *`` is done from numpy and pylab, when using pylab mode.
-# 
+#
 # When False, pylab mode should not import any names into the user namespace.
 # c.InteractiveShellApp.pylab_import_all = True
 
@@ -121,7 +121,7 @@
 #------------------------------------------------------------------------------
 
 # A configurable that only allows one instance.
-# 
+#
 # This class is for classes that should only have one instance of itself or
 # *any* subclass. To create and retrieve such a class use the
 # :meth:`SingletonConfigurable.instance` method.
@@ -157,7 +157,7 @@
 # c.BaseIPythonApplication.copy_config_files = False
 
 # Path to an extra config file to load.
-# 
+#
 # If specified, load this config file in addition to any other IPython config.
 # c.BaseIPythonApplication.extra_config_file = ''
 
@@ -190,7 +190,7 @@
 # c.IPKernelApp.interrupt = 0
 
 # The Kernel subclass to be used.
-# 
+#
 # This should allow easy re-use of the IPKernelApp entry point to configure and
 # launch kernels other than IPython's own.
 # c.IPKernelApp.kernel_class = 'ipykernel.ipkernel.IPythonKernel'
@@ -213,14 +213,14 @@
 #------------------------------------------------------------------------------
 
 # Whether to use appnope for compatiblity with OS X App Nap.
-# 
+#
 # Only affects OS X >= 10.9.
 # c.Kernel._darwin_app_nap = True
 
-# 
+#
 # c.Kernel._execute_sleep = 0.0005
 
-# 
+#
 # c.Kernel._poll_interval = 0.05
 
 #------------------------------------------------------------------------------
@@ -277,13 +277,13 @@
 # Set the color scheme (NoColor, Neutral, Linux, or LightBG).
 # c.InteractiveShell.colors = 'Neutral'
 
-# 
+#
 # c.InteractiveShell.debug = False
 
 # **Deprecated**
-# 
+#
 # Will be removed in IPython 6.0
-# 
+#
 # Enable deep (recursive) reloading by default. IPython can use the deep_reload
 # module which reloads changes in modules recursively (it replaces the reload()
 # function, so you don't need to change anything to use it). `deep_reload`
@@ -309,7 +309,7 @@
 # startup.
 # c.InteractiveShell.history_load_length = 1000
 
-# 
+#
 # c.InteractiveShell.ipython_dir = ''
 
 # Start logging to the given file in append mode. Use `logfile` to specify a log
@@ -323,7 +323,7 @@
 # specify a log file to **append** logs to.
 # c.InteractiveShell.logstart = False
 
-# 
+#
 # c.InteractiveShell.object_info_string_level = 0
 
 # Automatically call the pdb debugger after every exception.
@@ -345,16 +345,16 @@
 # TerminalInteractiveShell.prompts object directly.
 # c.InteractiveShell.prompts_pad_left = True
 
-# 
+#
 # c.InteractiveShell.quiet = False
 
-# 
+#
 # c.InteractiveShell.separate_in = '\n'
 
-# 
+#
 # c.InteractiveShell.separate_out = ''
 
-# 
+#
 # c.InteractiveShell.separate_out2 = ''
 
 # Show rewritten input, e.g. for autocall.
@@ -364,10 +364,10 @@
 # module).
 # c.InteractiveShell.sphinxify_docstring = False
 
-# 
+#
 # c.InteractiveShell.wildcards_case_sensitive = True
 
-# 
+#
 # c.InteractiveShell.xmode = 'Context'
 
 #------------------------------------------------------------------------------
@@ -381,10 +381,10 @@
 #------------------------------------------------------------------------------
 
 # An object to manage the profile directory and its resources.
-# 
+#
 # The profile directory is used by all IPython applications, to manage
 # configuration, logging and security.
-# 
+#
 # This object knows how to find, create and manage these directories. This
 # should be used by any code that wants to handle profiles.
 
@@ -397,27 +397,27 @@
 #------------------------------------------------------------------------------
 
 # Object for handling serialization and sending of messages.
-# 
+#
 # The Session object handles building messages and sending them with ZMQ sockets
 # or ZMQStream objects.  Objects can communicate with each other over the
 # network via Session objects, and only need to work with the dict-based IPython
 # message spec. The Session will handle serialization/deserialization, security,
 # and metadata.
-# 
+#
 # Sessions support configurable serialization via packer/unpacker traits, and
 # signing with HMAC digests via the key/keyfile traits.
-# 
+#
 # Parameters ----------
-# 
+#
 # debug : bool
 #     whether to trigger extra debugging statements
 # packer/unpacker : str : 'json', 'pickle' or import_string
 #     importstrings for methods to serialize message parts.  If just
 #     'json' or 'pickle', predefined JSON and pickle packers will be used.
 #     Otherwise, the entire importstring must be used.
-# 
+#
 #     The functions must accept at least valid JSON input, and output *bytes*.
-# 
+#
 #     For example, to use msgpack:
 #     packer = 'msgpack.packb', unpacker='msgpack.unpackb'
 # pack/unpack : callables
@@ -438,7 +438,7 @@
 # c.Session.buffer_threshold = 1024
 
 # Whether to check PID to protect against calls after fork.
-# 
+#
 # This check can be disabled if fork-safety is handled elsewhere.
 # c.Session.check_pid = True
 
@@ -449,7 +449,7 @@
 # c.Session.debug = False
 
 # The maximum number of digests to remember.
-# 
+#
 # The digest history will be culled when it exceeds this value.
 # c.Session.digest_history_size = 65536
 

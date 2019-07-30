@@ -46,14 +46,14 @@ c.InteractiveShellApp.extensions = ["autoreload", "blackcellmagic"]
 
 # Enable GUI event loop integration with any of ('glut', 'gtk', 'gtk3', 'osx',
 # 'pyglet', 'qt', 'qt5', 'tk', 'wx').
-# c.InteractiveShellApp.gui = None
+#c.InteractiveShellApp.gui = "qt"
 
 # Should variables loaded at startup (by startup files, exec_lines, etc.) be
 # hidden from tools like %who?
 # c.InteractiveShellApp.hide_initial_ns = True
 
 # Configure matplotlib for interactive use with the default matplotlib backend.
-c.InteractiveShellApp.matplotlib = "qt"
+#c.InteractiveShellApp.matplotlib = "inline"
 
 # Run the module as a script.
 # c.InteractiveShellApp.module_to_run = ''
