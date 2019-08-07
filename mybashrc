@@ -5,6 +5,7 @@ PROMPT_BACK_COLOR=104
 PROMPT_FORE_COLOR=94
 PROMPT_DIR_COLOR=93
 export PS1="\n\[\e[${PROMPT_BACK_COLOR}m\e[30m\] \D{%T} \h \l \[\e[${PROMPT_FORE_COLOR}m\e[49m\] \[\e[${PROMPT_DIR_COLOR}m\]\w\n\[\e[91m\]>\[\e[0m\] "
+
 # echo -e '\uE0B2 \uE0B0'  ->   
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
 # enclose all escape commands in \[ \]
@@ -13,7 +14,7 @@ export LS_COLORS="di=1:fi=0:ln=4:do=7:pi=7:so=7:bd=7:cd=7:or=5:mi=5:su=4:sg=4:tw
 
 alias ls="ls --color=auto"
 alias ll="exa --group-directories-first -l"
-alias grep="grep -rnIi --color=auto"           # recursive, line numbes, no binary, case-insensitive
+#alias grep="grep -rnIi --color=auto"           # recursive, line numbes, no binary, case-insensitive
 
 #export GOPATH=".."
 #export MYPYPATH="../bin/mypy"
@@ -23,7 +24,7 @@ alias grep="grep -rnIi --color=auto"           # recursive, line numbes, no bina
 #export CDPATH=
 
 
-#export EDITOR=geany
+export EDITOR=geany
 
 #export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-mathjax'
 #export PYSPARK_PYTHON=/BIGDATA/opt/iaa/anaconda3/bin/python

@@ -539,6 +539,12 @@ try:  # Section for HTML printer
 
         def ipy_html_pandasdataframe(df):
             def type_icon(dtype):
+                if dtype.name in ("Int8", "Int16", "Int32", "Int64"):
+                    return ""
+
+                if dtype.name == "category":
+                    return " 𐄜"
+
                 if np.issubdtype(dtype, np.number):
                     return " &#x3253;"
 

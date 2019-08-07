@@ -37,7 +37,7 @@ try:
         "hist.bins"
     ] = (
         "auto"
-    )  # "auto" failed for some data; would like "doane"; alternative "rice" but only takes data size and not variability; "stone" was not found
+    )  # "auto" failed for some data; would like "doane"; "sturges" was ok; rest not
 except ImportError as e:
     pass
 except Exception as e:
