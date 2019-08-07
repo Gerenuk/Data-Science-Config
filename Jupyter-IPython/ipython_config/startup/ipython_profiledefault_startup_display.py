@@ -11,7 +11,6 @@ TODO:
 """
 
 import datetime
-import html
 import string
 from collections import Counter, OrderedDict
 from functools import partial
@@ -538,6 +537,8 @@ try:  # Section for HTML printer
         import pandas as pd
 
         def ipy_html_pandasdataframe(df):
+            import html
+            
             def type_icon(dtype):
                 if dtype.name in ("Int8", "Int16", "Int32", "Int64"):
                     return ""
