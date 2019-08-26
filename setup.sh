@@ -3,10 +3,14 @@
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
 
-JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager @quentinandre/jupyterlab_snippets"
+JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager @jupyterlab/toc @krassowski/jupyterlab_go_to_definition"
 # validate all
 
-CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh numexpr bottleneck cytoolz xlrd tqdm statsmodels numpy matplotlib"
+# "nomkl" for Linux and AMD to use OpenBLAS (MKL AMD may be slow and even crash, e.g. LGBM)
+# nodejs for jupyterlab extensions
+# mypy rope for vscode
+# toml, click, appdirs for black
+CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh numexpr bottleneck cytoolz xlrd tqdm statsmodels numpy matplotlib nodejs mypy rope toml click appdirs"
 PIP_PACKAGES="colorful blackcellmagic"  # colorlog?
 
 HOSTNAME=`hostname`
@@ -50,7 +54,11 @@ python -m ipykernel install --user --name py --display-name="Py"
 
 pip install $PIP_PACKAGES
 
-jupyter labextension install "JUPYTERLAB_EXTENSIONS"   # does this work?
+jupyter labextension install $JUPYTERLAB_EXTENSIONS
+
+jupyter labextension install @ryantam626/jupyterlab_code_formatter
+pip install jupyterlab_code_formatter
+jupyter serverextension enable --py jupyterlab_code_formatter
 
 # still need nbextensions
 

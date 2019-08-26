@@ -14,7 +14,7 @@ export LS_COLORS="di=1:fi=0:ln=4:do=7:pi=7:so=7:bd=7:cd=7:or=5:mi=5:su=4:sg=4:tw
 
 alias ls="ls --color=auto"
 alias ll="exa --group-directories-first -l"
-#alias grep="grep -rnIi --color=auto"           # recursive, line numbes, no binary, case-insensitive
+alias grep="grep -nIi --color=auto"           # line numbers, no binary, case-insensitive
 
 #export GOPATH=".."
 #export MYPYPATH="../bin/mypy"
