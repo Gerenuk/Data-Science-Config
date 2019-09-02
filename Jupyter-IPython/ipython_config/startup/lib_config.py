@@ -6,14 +6,14 @@ warnings.simplefilter("once")  # does it work?
 logging.captureWarnings(True)
 
 
-def _startup():
+def create_logger():
     import colorlog
 
     log_filename = "out.log"
     log_format = "%(log_color)s[%(levelname)s]%(white)s %(asctime)s %(name)s:%(funcName)s(L%(lineno)s)%(reset)s %(message)s"
     date_format = "%H:%M"
 
-    logger = logging.getLogger("")
+    logger = logging.getLogger("mylog")
     logger.setLevel("DEBUG")
 
     handler = logging.FileHandler(log_filename)
@@ -22,6 +22,11 @@ def _startup():
 
     handler.setFormatter(formatter)
     logger.addHandler(handler)
+
+
+#logger = create_logger()
+
+#del create_logger
 
 
 try:
@@ -37,7 +42,7 @@ try:
         "hist.bins"
     ] = (
         "auto"
-    )  # "auto" failed for some data; would like "doane"; alternative "rice" but only takes data size and not variability; "stone" was not found
+    )  # "auto" failed for some data; would like "doane"; "sturges" was ok; rest not
 except ImportError as e:
     pass
 except Exception as e:
@@ -69,7 +74,9 @@ except Exception as e:
 try:
     import pandas as pd
 
-    pd.set_option("display.max_rows", 100)
+    pd.set_option("display.max_rows", 40)   # so that still can scroll
+    pd.set_option("display.max_columns", 300)
+
     pd.set_option("display.large_repr", "truncate")
     pd.set_option("display.max_info_columns", 1000)
     pd.set_option("display.max_colwidth", 40)
@@ -77,7 +84,7 @@ try:
     pd.set_option("display.max_seq_items", 10)
     # pd.set_option("display.precision", 4)
 
-    pd.set_option("float_format", "{:,.5g}".format)
+    #pd.set_option("float_format", "{:,.5g}".format)  # too dangerous for not seeing decimal places
 
     # pd.set_option('precision',2)  # decimal determined by number precision in digits
 except ImportError:
@@ -85,5 +92,3 @@ except ImportError:
 except Exception as e:
     logging.warning("Failed setting Pandas settings ({})".format(e))
 
-_startup()
-del _startup

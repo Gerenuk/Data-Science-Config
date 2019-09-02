@@ -20,6 +20,13 @@ class catch_exc:
         return True
 
 
+import os
+from pathlib import Path
+
+if "DATADIR" in os.environ:
+    data_dir = Path(os.environ["DATADIR"])
+
+
 from functools import reduce, partial
 from operator import *
 from pprint import pprint
@@ -36,7 +43,6 @@ import contextlib
 import csv
 import glob
 import logging
-import os
 import pickle
 import random
 import re
