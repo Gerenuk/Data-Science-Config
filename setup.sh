@@ -3,7 +3,7 @@
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
 
-JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager @quentinandre/jupyterlab_snippets"
+JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager" # @quentinandre/jupyterlab_snippets"
 # validate all
 
 CONDA_PACKAGES="ipykernel pandas scikit-learn seaborn holoviews bokeh numexpr bottleneck cytoolz xlrd tqdm statsmodels numpy matplotlib"
@@ -26,7 +26,7 @@ cat <<END >> ~/.bashrc
 source ~/.mybashrc
 END
 
-# Generate own key SSH key
+# Generate own key SSH keyyes
 ssh-keygen -t ed25519 -a 100 -f $SSH_KEY_FILENAME -N ''
 
 # Git config
