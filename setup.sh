@@ -3,8 +3,8 @@
 EMAIL="a.suchaneck@gmail.com"
 USERNAME="Anton Suchaneck"
 
+
 JUPYTERLAB_EXTENSIONS="@pyviz/jupyterlab_pyviz @jupyter-widgets/jupyterlab-manager @jupyterlab/toc @krassowski/jupyterlab_go_to_definition"
-# validate all
 
 # "nomkl" for Linux and AMD to use OpenBLAS (MKL AMD may be slow and even crash, e.g. LGBM)
 # nodejs for jupyterlab extensions
@@ -30,7 +30,7 @@ cat <<END >> ~/.bashrc
 source ~/.mybashrc
 END
 
-# Generate own key SSH key
+# Generate own key SSH keyyes
 ssh-keygen -t ed25519 -a 100 -f $SSH_KEY_FILENAME -N ''
 
 # Git config

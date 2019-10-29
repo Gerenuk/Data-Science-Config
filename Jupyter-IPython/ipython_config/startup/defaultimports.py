@@ -28,6 +28,7 @@ from copy import deepcopy
 from bisect import *
 from abc import *
 from math import *
+del pow   # builtin pow takes even 3 arguments
 from itertools import *
 from collections import *
 
