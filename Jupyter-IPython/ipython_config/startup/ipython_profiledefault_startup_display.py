@@ -538,7 +538,7 @@ try:  # Section for HTML printer
 
         def ipy_html_pandasdataframe(df):
             import html
-            
+
             def type_icon(dtype):
                 if dtype.name in ("Int8", "Int16", "Int32", "Int64"):
                     return ""
@@ -546,11 +546,17 @@ try:  # Section for HTML printer
                 if dtype.name == "category":
                     return " 𐄜"
 
-                if np.issubdtype(dtype, np.number):
-                    return " &#x3253;"
-
-                if np.issubdtype(dtype, np.datetime64):
+                if "datetime64" in dtype.name:
                     return " &#128337;"
+
+                try:
+                    if np.issubdtype(dtype, np.number):
+                        return " &#x3253;"
+
+                    if np.issubdtype(dtype, np.datetime64):
+                        return " &#128337;"
+                except TypeError:
+                    return ""  # numpy failed to recognize type
 
                 return ""
 

@@ -25,6 +25,8 @@ alias grep="grep -nIi --color=auto"           # line numbers, no binary, case-in
 
 
 export EDITOR=geany
+#export PYTHONWARNINGS=once    # created too many library warnings
+export PYTHONUTF8=1
 
 #export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-mathjax'
 #export PYSPARK_PYTHON=/BIGDATA/opt/iaa/anaconda3/bin/python
